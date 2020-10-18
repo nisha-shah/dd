@@ -1,0 +1,44 @@
+.chat-room {
+    height: 100%;
+    width: 100%; 
+    position: absolute;
+}
+
+.left-bar {
+    float: left;
+    height: 100%;
+    width: 20%;
+    background-color: red;
+}
+
+.right-bar {
+    float: left;
+    height: 100%;
+    width: 80%;
+    /* background-color: pink; */
+}
+
+.user-details {
+    height: 30%;
+    /* border-bottom: 2px solid black; */
+}
+
+.rooms-list {
+    
+}
+
+.room-details {
+    height: 15%;
+    border-bottom: 2px solid black;
+}
+
+.room-messages {
+    height: 70%;
+    border-bottom: 2px solid black;
+    background-color: rgb(231, 224, 224);
+}
+
+.new-message {
+    height: 15%;
+    /* border-bottom: 2px solid black; */
+}

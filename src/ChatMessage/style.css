@@ -1,0 +1,42 @@
+.chat-message {
+    /* float:left; */
+    margin-top:20px;
+    margin-bottom: 50px;
+}
+
+.chat-message-user {
+    color:grey;
+    position: absolute;
+}
+
+.chat-message-content {
+    color: black;
+    background-color: white;
+    border-radius: 12px;
+    min-height: 40px;
+    max-width: 76%;
+    padding: 5px;
+}
+
+
+.current-user-chat-message {
+    /* float:right; */
+    margin-top:20px;
+    margin-bottom: 50px;
+}
+
+.current-user-message-content {
+    /* float:right; */
+    color: white;
+    background-color: red;
+    border-radius: 12px;
+    min-height: 40px;
+    max-width: 76%;
+    padding: 5px;
+}
+
+.current-user-message-user {
+    color:grey;
+    position: absolute;
+}
+

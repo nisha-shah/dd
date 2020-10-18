@@ -1,0 +1,15 @@
+.user-details {
+    margin-left: 10%;
+}
+
+.user-name {
+    margin-top: 15%;
+    color: white;
+    font-weight: bolder;
+}
+
+.user-active-since {
+    margin-top: 5%;
+    color: white;   
+}
+

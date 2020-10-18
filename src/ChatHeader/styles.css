@@ -1,0 +1,14 @@
+
+.chat-room-name {
+    margin-top: 20px;
+    text-align: center;
+    color: grey;
+    font-size: x-large;
+}
+
+.chat-room-users {
+    margin-bottom: 20px;
+    text-align: center;
+    color: grey;
+    font-size: large;
+}

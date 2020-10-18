@@ -1,0 +1,20 @@
+.room-list {
+    margin-left: 10%;
+}
+
+.room-name {
+    color: white;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    font-weight: 500;
+    height: 50px;
+    padding: 20px;
+}
+
+.room-name:hover {
+    background-color: maroon;
+}
+
+.current-room {
+    background-color: maroon;
+}
