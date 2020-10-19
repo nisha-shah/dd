@@ -1,11 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./styles.css"
+import "./styles.css";
+
+const stateToSelector = (state) => {
+    const chatRoom = state.currentChatRoom,
+        currentUserName = state.userDetails.name;
+    return ({ chatRoom, currentUserName }); 
+};
 
 function ChatHeader() {
 
-    const chatRoom = useSelector(state => state.currentChatRoom);
-    const currentUserName = useSelector(state => state.userDetails.name);
+    const { chatRoom, currentUserName } = useSelector(stateToSelector);
 
     let firstName = null;
     let others = Object.assign([], chatRoom.users)

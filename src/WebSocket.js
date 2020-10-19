@@ -2,6 +2,7 @@ import React, { createContext } from "react"
 import io from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { ADD_NEW_ROOM_MESSAGE } from "./redux/actions";
+import { WEBSOCKET_SERVER_ENDPOINT } from "./config";
 
 export const WebSocketContext = createContext(null)
 
@@ -11,7 +12,7 @@ export default ({ children }) => {
     const dispatch = useDispatch();
 
     const sendMessage = (message, callback) => {
-        console.log("WebSocket --> SEND MESSAGE" + JSON.stringify(message));
+        console.log("WebSocket, sendMessage");
         socket.emit("send-message", JSON.stringify(message));
         // TODO : on success , call callback : add on failure callBack
         callback(message);
@@ -19,15 +20,15 @@ export default ({ children }) => {
 
     if (!socket) {
         console.log("Trying to connect to socket");
-        socket = io("http://localhost:8000");
+        socket = io(WEBSOCKET_SERVER_ENDPOINT);
 
         socket.on("connect", () => {
-            console.log("WebSocket Client --> Connected");
+            console.log("WebSocketClient connected");
             // socket.send("Hello websocket is connected!");
         });
 
         socket.on("get-message", (msg) => {
-            console.log("WebSocket --> GET MESSAGE" + msg);
+            console.log("WebSocket GET MESSAGE");
             dispatch({ type: ADD_NEW_ROOM_MESSAGE, data: JSON.parse(msg) });
         })
 
@@ -37,10 +38,8 @@ export default ({ children }) => {
         }
     }
 
-    return (
-        <WebSocketContext.Provider value={ws}>
-            {children}
-        </WebSocketContext.Provider>
+    return ( <
+        WebSocketContext.Provider value = { ws } > { children } <
+        /WebSocketContext.Provider>
     )
 }
-

@@ -1,11 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import "./style.css";
 
+const stateToSelector = (state) => {
+    const roomDetails = state.roomDetails,
+        currentRoom = state.currentChatRoom; 
+    return { roomDetails,  currentRoom };
+}
+
 function RoomList(props) {
 
-    const roomDetails = useSelector(state => state.roomDetails);
-    const currentRoom = useSelector(state => state.currentChatRoom);
+    const { roomDetails,  currentRoom } = useSelector(stateToSelector);
 
     let roomDivs = []
     for (let roomId in roomDetails) {
@@ -23,5 +29,9 @@ function RoomList(props) {
         </div>
     );
 }
+
+RoomList.propTypes = {
+    onRoomClick: PropTypes.func
+};
 
 export default RoomList;

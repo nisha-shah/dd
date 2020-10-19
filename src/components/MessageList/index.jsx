@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import ChatMessage from "../ChatMessage";
 import "./styles.css";
 
-function MessageList(props) {
+function MessageList() {
     const currentChatMessages = useSelector(state => state.currentChatMessages);
 
     const messagesEndRef = useRef(null)
     const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({ block: 'end', behavior: "smooth", inline: 'nearest' })
+        messagesEndRef.current.scrollIntoView({ block: "end", behavior: "smooth", inline: "nearest" })
     }
     useEffect(scrollToBottom, [currentChatMessages]);
 

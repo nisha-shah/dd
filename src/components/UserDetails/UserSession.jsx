@@ -27,7 +27,7 @@ class UserSession extends React.Component {
     render() {
         return (
             <div className="user-active-since">
-                Online for {this.state.elapsedTime}  {this.state.elapsedTime == 1 ? "minute" : "minutes"}
+                Online for {this.state.elapsedTime}  {this.state.elapsedTime === "1" ? "minute" : "minutes"}
             </div>
         );
     }

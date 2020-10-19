@@ -8,8 +8,8 @@ function Login() {
     const idRef = useRef();
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
         dispatch({ type: SET_USER_DETAILS, data: { userName: idRef.current.value, loggedInTime: new Date().getTime() } });
     }
 
@@ -23,7 +23,6 @@ function Login() {
             </Form>
         </Container>
     );
-
 }
 
 export default Login;

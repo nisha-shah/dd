@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import "./style.css";
 
@@ -15,5 +16,10 @@ function ChatMessage(props) {
         </div>
     );
 }
+
+ChatMessage.propTypes = {
+    userName: PropTypes.string,
+    message: PropTypes.string
+};
 
 export default ChatMessage;

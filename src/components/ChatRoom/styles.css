@@ -46,6 +46,7 @@ body {
     position: fixed;
     left: 300px;
     width: 100%;
+    padding-right: 300px;
 }
 
 .rooms-list {

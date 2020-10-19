@@ -1,13 +1,19 @@
 import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { WebSocketContext } from "../../WebSocket";
 import { ADD_NEW_ROOM_MESSAGE } from "../../redux/actions";
 import "./styles.css";
 
+const stateToSelector = (state) => {
+    const currentChatRoom = state.currentChatRoom,
+        userDetails = state.userDetails;
+    return ({ currentChatRoom, userDetails });
+};
+
 function NewMessage(props) {
 
-    const currentChatRoom = useSelector(state => state.currentChatRoom);
-    const userDetails = useSelector(state => state.userDetails);
+    const { currentChatRoom, userDetails } = useSelector(stateToSelector);
     const [newMessage, setNewMessage] = useState("");
 
     const ws = useContext(WebSocketContext);
@@ -41,6 +47,10 @@ function NewMessage(props) {
             <button className="btn-send" onClick={handleNewSendMessage}>Send</button>
         </div>
     );
+}
+
+NewMessage.propTypes = {
+    onSendMessage: PropTypes.func
 }
 
 export default NewMessage;

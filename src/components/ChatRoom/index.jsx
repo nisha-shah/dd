@@ -1,19 +1,28 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import UserDetails from "../UserDetails";
 import RoomList from "../RoomList";
 import MessageList from "../MessageList";
 import ChatHeader from "../ChatHeader";
 import NewMessage from "../NewMessage";
-import "./styles.css";
-import { connect } from "react-redux";
 import { SET_CHAT_ROOMS, UPDATE_ROOM_DETAILS, SET_CURRENT_CHAT_ROOM, SET_ROOM_MESSAGES } from "../../redux/actions";
-
+import { SERVER_API_GET_ROOMS_ENDPOINT } from "../../config";
+import "./styles.css";
 
 class ChatRoom extends React.Component {
 
+    static propTypes = {
+        userDetails: PropTypes.object,
+        roomDetails: PropTypes.object,
+        setRooms: PropTypes.func,
+        updateRoomDetails: PropTypes.func,
+        setCurrentChatRoom: PropTypes.func,
+        setRoomMessages: PropTypes.func
+    }
+
     componentDidMount() {
-        console.log("In Component did mount");
-        fetch('http://localhost:8080/api/rooms').then((result) => result.json().then((data) => {
+        fetch(SERVER_API_GET_ROOMS_ENDPOINT).then((result) => result.json().then((data) => {
             // get all room messages
             let chatRooms = {};
             data.forEach((room) => {
@@ -25,16 +34,17 @@ class ChatRoom extends React.Component {
     }
 
     handleChatRoomClick = (roomId) => {
-
-        console.log("handleChatRoomClick , Selected room id is " + roomId);
         if (!this.props.roomDetails[roomId].roomDetailsFetched) {
-            fetch(`http://localhost:8080/api/rooms/${roomId}`).then((result) => result.json().then((roomDetails) => {
-                this.props.updateRoomDetails(roomDetails);
-                // TODO --> check if need to move this fetch under above
-                fetch(`http://localhost:8080/api/rooms/${roomId}/messages`).then((result) => result.json().then((roomMesages) => {
-                    this.props.setRoomMessages(roomId, roomMesages);
-                    this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
-                }));
+            fetch(`http://localhost:8080/api/rooms/${roomId}`)
+                .then((result) => result.json()
+                    .then((roomDetails) => {
+                    this.props.updateRoomDetails(roomDetails);
+                    fetch(`http://localhost:8080/api/rooms/${roomId}/messages`)
+                        .then((result) => result.json()
+                            .then((roomMesages) => {
+                                this.props.setRoomMessages(roomId, roomMesages);
+                                this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
+                    }));
             }));
         } else {
             this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
@@ -43,15 +53,16 @@ class ChatRoom extends React.Component {
     }
 
     handleSendNewMessage = (newMessage) => {
-        console.log("Handle Send Message" + JSON.stringify(newMessage));
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newMessage)
         };
 
-
-        fetch(`http://localhost:8080/api/rooms/${newMessage.roomId}/messages`, request).then((result) => result.json().then((data) => {
+        fetch(`http://localhost:8080/api/rooms/${newMessage.roomId}/messages`, request)
+            .then((result) => result.json()
+                .then((data) => {
+                    console.log("New Message saved" + data);
             // TODO: handle errors
         }));
     }

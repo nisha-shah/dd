@@ -3,28 +3,27 @@ const reducer = (state = {}, action) => {
     switch (type) {
 
         case "SET_USER_DETAILS":
-            return { ...state, userDetails: { name: data.userName, sessionStartTime: data.loggedInTime } };
+            return {...state, userDetails: { name: data.userName, sessionStartTime: data.loggedInTime } };
 
         case "SET_CHAT_ROOMS":
-            return { ...state, roomDetails: data };
+            return {...state, roomDetails: data };
 
         case "UPDATE_ROOM_DETAILS":
             let existingroomDetails = Object.assign({}, state.roomDetails);
             existingroomDetails[data.id].users = data.users;
             existingroomDetails[data.id].roomDetailsFetched = true;
-            return { ...state, roomDetails: existingroomDetails };
+            return {...state, roomDetails: existingroomDetails };
 
         case "SET_CURRENT_CHAT_ROOM":
             let currentMessages = Object.assign([], state.roomMessages[data.id]);
-            return { ...state, currentChatRoom: data, currentChatMessages: currentMessages };
+            return {...state, currentChatRoom: data, currentChatMessages: currentMessages };
 
         case "SET_ROOM_MESSAGES":
             let roomMessages = Object.assign({}, state.roomMessages);
             roomMessages[data.roomId] = data.messages;
-            return { ...state, roomMessages: roomMessages };
+            return {...state, roomMessages: roomMessages };
 
         case "ADD_NEW_ROOM_MESSAGE":
-            console.log("in ADD NEW ROOM MESSAGE" + data);
             let roomId = data.roomId;
             let messagesForRoom = Object.assign([], state.roomMessages[roomId]);
             messagesForRoom.push(data);
@@ -40,9 +39,10 @@ const reducer = (state = {}, action) => {
             if (roomDetails[roomId] && !roomDetails[roomId].users.includes(data.name)) {
                 roomDetails[roomId].users.push(data.name);
             }
-            return { ...state, roomMessages: newRoomMessages, currentChatMessages: newCurrentChatMessages, roomDetails: roomDetails };
+            return {...state, roomMessages: newRoomMessages, currentChatMessages: newCurrentChatMessages, roomDetails: roomDetails };
 
-        default: return state
+        default:
+            return state
     }
 }
 export default reducer;
