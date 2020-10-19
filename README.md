@@ -1,6 +1,8 @@
 # Overview 
 This is a chat application allowing multiple users to communicate in differnt chat rooms. 
 
+![Screenshot](screenshot.png)
+
 # Main Features
 1. Multiple users are able to chat in real time using websockets
 2. Messages persisted by calling backend server APIs
