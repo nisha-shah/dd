@@ -11,11 +11,11 @@ export default ({ children }) => {
     let ws;
     const dispatch = useDispatch();
 
-    const sendMessage = (message, callback) => {
+    const sendMessage = (message) => {
         console.log("WebSocket, sendMessage");
         socket.emit("send-message", JSON.stringify(message));
-        // TODO : on success , call callback : add on failure callBack
-        callback(message);
+        // TODO : error handling
+        dispatch({ type: ADD_NEW_ROOM_MESSAGE, data: message });
     }
 
     if (!socket) {

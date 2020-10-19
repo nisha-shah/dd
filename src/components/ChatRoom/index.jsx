@@ -9,6 +9,8 @@ import NewMessage from "../NewMessage";
 import { SET_CHAT_ROOMS, UPDATE_ROOM_DETAILS, SET_CURRENT_CHAT_ROOM, SET_ROOM_MESSAGES } from "../../redux/actions";
 import { SERVER_API_GET_ROOMS_ENDPOINT } from "../../config";
 import "./styles.css";
+import { WebSocketContext } from "../../WebSocket";
+
 
 class ChatRoom extends React.Component {
 
@@ -20,6 +22,8 @@ class ChatRoom extends React.Component {
         setCurrentChatRoom: PropTypes.func,
         setRoomMessages: PropTypes.func
     }
+
+    static contextType = WebSocketContext;
 
     componentDidMount() {
         // get all available rooms from server
@@ -53,6 +57,7 @@ class ChatRoom extends React.Component {
                 .then((result) => result.json()
                     .then((roomDetails) => {
                         this.props.updateRoomDetails(roomDetails);
+                        // once room details are fetched, now fetch messages of that room
                         fetch(`${SERVER_API_GET_ROOMS_ENDPOINT}/${roomId}/messages`)
                             .then((result) => result.json()
                                 .then((roomMesages) => {
@@ -66,6 +71,7 @@ class ChatRoom extends React.Component {
     }
 
     handleSendNewMessage = (newMessage) => {
+        let ws = this.ws;
         // write the new message to server before broadcasting it to other users
         const request = {
             method: "POST",
@@ -78,6 +84,7 @@ class ChatRoom extends React.Component {
                 .then((data) => {
                     // TODO: handle errors
                     console.log("New Message persisted");
+                    this.context.sendMessage(newMessage);
                 }));
     }
 

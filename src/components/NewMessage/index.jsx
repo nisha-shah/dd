@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import { WebSocketContext } from "../../WebSocket";
-import { ADD_NEW_ROOM_MESSAGE } from "../../redux/actions";
+import { useSelector } from "react-redux";
 import "./styles.css";
 
 const stateToSelector = (state) => {
@@ -16,15 +14,6 @@ function NewMessage(props) {
     const { currentChatRoom, userDetails } = useSelector(stateToSelector);
     const [newMessage, setNewMessage] = useState("");
 
-    const ws = useContext(WebSocketContext);
-    const dispatch = useDispatch();
-
-    const dispatchNewMessage = (message) => {
-        dispatch({ type: ADD_NEW_ROOM_MESSAGE, data: message });
-        props.onSendMessage(message);
-        setNewMessage("");
-    }
-
     const handleSendButtonClick = () => {
         if (newMessage !== "") {
             const message = {
@@ -33,7 +22,8 @@ function NewMessage(props) {
                 reaction: null,
                 roomId: currentChatRoom.id
             };
-            ws.sendMessage(message, dispatchNewMessage);
+            props.onSendMessage(message);
+            setNewMessage("");
         }
     }
 

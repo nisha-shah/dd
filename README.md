@@ -1,3 +1,29 @@
+# Overview 
+This is a chat application allowing multiple users to communicate in differnt chat rooms. All details can be found in "details.pdf" in the same directory.
+
+# How to build and run locally
+Install Pre-requisites
+* Node
+
+Download Dependencies
+```
+npm install
+```
+
+### Start HTTP Backend Server 
+```
+npm run api-server
+```
+### Start WebSocket Server
+```
+npm run websocket-server
+```
+### Build UI
+```
+npm start
+```
+
+
 # DoorDash Frontend Interview Project
 * TLDR: *Build a chat app with real APIs*
 * Time: *3hr - 6hrs*
