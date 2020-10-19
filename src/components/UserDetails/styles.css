@@ -1,15 +1,18 @@
-.user-details {
+.chat-user-details {
     margin-left: 10%;
 }
 
 .user-name {
-    margin-top: 15%;
+    font-size: 30px;
     color: white;
-    font-weight: bolder;
+    font-weight: bold;
+    margin-top: 15%;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .user-active-since {
     margin-top: 5%;
-    color: white;   
+    color: white;
 }
-

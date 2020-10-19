@@ -1,5 +1,6 @@
 .message-list {
-    margin-left:20px;
+    margin-left: 20px;
     margin-top: 20px;
-    background-color: rgb(231, 224, 224);
+    overflow-y: auto;
+    padding-bottom: 125px;
 }

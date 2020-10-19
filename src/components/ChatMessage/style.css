@@ -1,42 +1,44 @@
 .chat-message {
-    /* float:left; */
-    margin-top:20px;
-    margin-bottom: 50px;
+    clear: both;
+    float: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 25px;
+    max-width: 50%;
+    min-width: 10%;
 }
 
 .chat-message-user {
-    color:grey;
-    position: absolute;
+    color: grey;
 }
 
 .chat-message-content {
     color: black;
     background-color: white;
-    border-radius: 12px;
+    border-radius: 20px;
     min-height: 40px;
-    max-width: 76%;
-    padding: 5px;
+    padding: 10px 20px 10px 20px;
 }
 
-
 .current-user-chat-message {
-    /* float:right; */
-    margin-top:20px;
-    margin-bottom: 50px;
+    clear: both;
+    float: right;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 25px;
+    max-width: 50%;
+    min-width: 10%;
 }
 
 .current-user-message-content {
-    /* float:right; */
     color: white;
     background-color: red;
-    border-radius: 12px;
+    border-radius: 20px;
     min-height: 40px;
-    max-width: 76%;
-    padding: 5px;
+    padding: 10px 20px 10px 20px;
 }
 
 .current-user-message-user {
-    color:grey;
+    color: grey;
     position: absolute;
 }
-

@@ -8,7 +8,7 @@ function ChatApp() {
 
     const userDetails = useSelector(state => state.userDetails);
     return (
-        <div className="App" style={{ height: "100%" }}>
+        <div className="chat-app">
             {  !userDetails.name ? <Login /> : <ChatRoom userDetails={userDetails} />}
         </div>
     );

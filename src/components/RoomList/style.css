@@ -1,14 +1,14 @@
-.room-list {
-    margin-left: 10%;
+.rooms-list {
+    overflow-y: auto;
 }
 
 .room-name {
     color: white;
-    margin-left: 10%;
-    margin-bottom: 20px;
-    font-weight: 500;
-    height: 50px;
-    padding: 20px;
+    font-size: 18px;
+    height: 75px;
+    padding: 10%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .room-name:hover {

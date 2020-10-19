@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { WebSocketContext } from "../../WebSocket";
 import { ADD_NEW_ROOM_MESSAGE } from "../../redux/actions";
+import "./styles.css";
 
 function NewMessage(props) {
 
@@ -19,13 +20,15 @@ function NewMessage(props) {
     }
 
     const handleNewSendMessage = () => {
-        const message = {
-            name: userDetails.name,
-            message: newMessage,
-            reaction: null,
-            roomId: currentChatRoom.id
-        };
-        ws.sendMessage(message, dispatchNewMessage);
+        if (newMessage !== "") {
+            const message = {
+                name: userDetails.name,
+                message: newMessage,
+                reaction: null,
+                roomId: currentChatRoom.id
+            };
+            ws.sendMessage(message, dispatchNewMessage);
+        }
     }
 
     const handleNewMessageChange = (event) => {
@@ -33,9 +36,9 @@ function NewMessage(props) {
     }
 
     return (
-        <div className="new-message" style={{ margin: "24px" }}>
-            <input type="text" placeholder="Type your message..." onChange={handleNewMessageChange} value={newMessage} style={{ width: "90%", }} />
-            <button style={{ backgroundColor: "#ff0000", marginLeft: "20px" }} onClick={handleNewSendMessage}>Send</button>
+        <div className="new-message">
+            <input type="text" placeholder="Type your message..." onChange={handleNewMessageChange} value={newMessage} className="input-chat-box" />
+            <button className="btn-send" onClick={handleNewSendMessage}>Send</button>
         </div>
     );
 }

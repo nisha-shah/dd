@@ -58,28 +58,23 @@ class ChatRoom extends React.Component {
 
     render() {
         return (
-            <div className="chat-room" style={{ height: "100%", width: "100%", position: "absolute" }}>
-                <div className="left-bar">
+            <div className="chat-room">
                     <div className="user-details">
                         <UserDetails userDetails={this.props.userDetails} />
                     </div>
                     <div className="rooms-list">
                         <RoomList onRoomClick={this.handleChatRoomClick} />
                     </div>
-                </div>
-                <div className="right-bar" >
                     <div className="room-details">
                         <ChatHeader />
                     </div>
                     <div className="room-messages">
                         <MessageList />
                     </div>
-                    <div className="new-message">
+                    <div className="new-chat-message">
                         <NewMessage onSendMessage={this.handleSendNewMessage} />
                     </div>
-                </div>
             </div>
-
         );
     }
 }

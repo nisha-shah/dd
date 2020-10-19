@@ -5,32 +5,30 @@ class UserSession extends React.Component {
 
     constructor(props) {
         super(props);
-        let date = new Date();
         this.state = {
-            time: date.toLocaleString()
+            elapsedTime: 0
         };
     }
 
     componentDidMount() {
         setInterval(
-            () => this.tick(), 5000
+            () => this.tick(), 30000
         );
     }
 
     tick() {
         let date = new Date();
-        let timeDiff = (this.props.sessionInTime - date.getTime()) / 1000;
-        timeDiff /= 60;
+        let timeDiff = (this.props.sessionInTime - date.getTime()) / 60000;
         this.setState({
-            time: Math.abs(Math.round(timeDiff))
+            elapsedTime: Math.abs(Math.round(timeDiff))
         });
     }
 
     render() {
         return (
-        <div className="user-active-since" style = {{ fontWeight: "300"}}>
-            Online for {this.state.time} mins
-        </div>
+            <div className="user-active-since">
+                Online for {this.state.elapsedTime}  {this.state.elapsedTime == 1 ? "minute" : "minutes"}
+            </div>
         );
     }
 }

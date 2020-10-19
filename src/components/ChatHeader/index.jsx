@@ -5,12 +5,20 @@ import "./styles.css"
 function ChatHeader() {
 
     const chatRoom = useSelector(state => state.currentChatRoom);
+    const currentUserName = useSelector(state => state.userDetails.name);
 
+    let firstName = null;
+    let others = Object.assign([], chatRoom.users)
+    if (chatRoom.users && chatRoom.users.includes(currentUserName)) {
+        firstName = currentUserName;
+        others = others.filter((name) => {return name !== firstName});
+    }
     return (
         <div className="chat-header">
             <div className="chat-room-name">{chatRoom.name}</div>
             <div className="chat-room-users">
-                {chatRoom.users ? chatRoom.users.join() : ""}
+                <span className="current-user-name">{firstName}</span>
+                {(firstName ? ", " : "") + others.join(", ")}
             </div>
         </div>
     );

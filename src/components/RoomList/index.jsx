@@ -18,7 +18,7 @@ function RoomList(props) {
     }
 
     return (
-        <div className="room-list" style={{ height: "90%", width: "100%" }}>
+        <div className="rooms-list">
             {roomDivs}
         </div>
     );
