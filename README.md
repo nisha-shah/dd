@@ -5,20 +5,19 @@ This is a chat application allowing multiple users to communicate in differnt ch
 Install Pre-requisites
 * Node
 
-Download Dependencies
+1. Download Dependencies
 ```
 npm install
 ```
-
-### Start HTTP Backend Server 
+2. Start HTTP Backend Server 
 ```
 npm run api-server
 ```
-### Start WebSocket Server
+3. Start WebSocket Server
 ```
 npm run websocket-server
 ```
-### Build UI
+4. Build UI
 ```
 npm start
 ```
