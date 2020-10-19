@@ -1,27 +1,42 @@
 # Overview 
-This is a chat application allowing multiple users to communicate in differnt chat rooms. All details can be found in "details.pdf" in the same directory.
+This is a chat application allowing multiple users to communicate in differnt chat rooms. 
+
+# Main Features
+1. Multiple users are able to chat in real time using websockets
+2. Messages persisted by calling backend server APIs
+3. Scrolls the chat window to the bottom when new messages are added
+4. Left panel fixed width while right panel stretches to accommodate
+5. Notification for new unread messages in another room
+6. Users are added to a room after they post one message in that room
+
+All details can be found in "details.pdf" in the same directory.
+
 
 # How to build and run locally
 Install Pre-requisites
 * Node
 
-1. Download Dependencies
 ```
+# cd <Root Directory of project>
+# Download Dependencies
 npm install
-```
-2. Start HTTP Backend Server 
-```
+
+# Open three new tabs in your favorite terminal
+
+# Start HTTP Backend Server 
 npm run api-server
-```
-3. Start WebSocket Server
-```
+
+# Start WebSocket Server
 npm run websocket-server
-```
-4. Build UI
-```
+
+# Build UI
 npm start
+
+# open localhost:3000 on your browser
+# open multiple tabs in browser for multiple user communication
 ```
 
+--------------------- Original Instructions ---------------------
 
 # DoorDash Frontend Interview Project
 * TLDR: *Build a chat app with real APIs*
