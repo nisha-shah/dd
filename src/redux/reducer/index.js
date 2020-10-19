@@ -16,7 +16,10 @@ const reducer = (state = {}, action) => {
 
         case "SET_CURRENT_CHAT_ROOM":
             let currentMessages = Object.assign([], state.roomMessages[data.id]);
-            return {...state, currentChatRoom: data, currentChatMessages: currentMessages };
+            // set hasUnreadMessages to False
+            let currentRoomDetails = Object.assign({}, state.roomDetails);
+            currentRoomDetails[data.id].hasUnreadMessages = false
+            return {...state, currentChatRoom: data, currentChatMessages: currentMessages, roomDetails: currentRoomDetails };
 
         case "SET_ROOM_MESSAGES":
             let roomMessages = Object.assign({}, state.roomMessages);
@@ -39,6 +42,11 @@ const reducer = (state = {}, action) => {
             if (roomDetails[roomId] && !roomDetails[roomId].users.includes(data.name)) {
                 roomDetails[roomId].users.push(data.name);
             }
+            // mark unread message on room if not current room
+            if (state.currentChatRoom.id !== roomId) {
+                roomDetails[roomId].hasUnreadMessages = true;
+            }
+
             return {...state, roomMessages: newRoomMessages, currentChatMessages: newCurrentChatMessages, roomDetails: roomDetails };
 
         default:

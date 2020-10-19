@@ -25,7 +25,7 @@ function NewMessage(props) {
         setNewMessage("");
     }
 
-    const handleNewSendMessage = () => {
+    const handleSendButtonClick = () => {
         if (newMessage !== "") {
             const message = {
                 name: userDetails.name,
@@ -41,10 +41,17 @@ function NewMessage(props) {
         setNewMessage(event.target.value);
     }
 
+    const handleKeypress = event => {
+        //it triggers by pressing the enter key
+        if (event.keyCode === 13) {
+            handleSendButtonClick();
+        }
+    }
+
     return (
         <div className="new-message">
-            <input type="text" placeholder="Type your message..." onChange={handleNewMessageChange} value={newMessage} className="input-chat-box" />
-            <button className="btn-send" onClick={handleNewSendMessage}>Send</button>
+            <input type="text" placeholder="Type your message..." onChange={handleNewMessageChange} onKeyDown={handleKeypress} value={newMessage} className="input-chat-box" />
+            <button className="btn-send" onClick={handleSendButtonClick}>Send</button>
         </div>
     );
 }

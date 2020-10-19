@@ -26,10 +26,15 @@ class ChatRoom extends React.Component {
             // get all room messages
             let chatRooms = {};
             data.forEach((room) => {
-                let newRoom = { id: room.id, name: room.name, users: [], roomDetailsFetched: false };
+                let newRoom = { id: room.id, name: room.name, users: [], roomDetailsFetched: false, hasUnreadMessages: false };
                 chatRooms[room.id] = newRoom;
             });
             this.props.setRooms(chatRooms);
+
+            // setting first room as the default during first load
+            if (data && data.length > 0) {
+                this.handleChatRoomClick(data[0].id);
+            }
         }));
     }
 
@@ -38,18 +43,17 @@ class ChatRoom extends React.Component {
             fetch(`http://localhost:8080/api/rooms/${roomId}`)
                 .then((result) => result.json()
                     .then((roomDetails) => {
-                    this.props.updateRoomDetails(roomDetails);
-                    fetch(`http://localhost:8080/api/rooms/${roomId}/messages`)
-                        .then((result) => result.json()
-                            .then((roomMesages) => {
-                                this.props.setRoomMessages(roomId, roomMesages);
-                                this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
+                        this.props.updateRoomDetails(roomDetails);
+                        fetch(`http://localhost:8080/api/rooms/${roomId}/messages`)
+                            .then((result) => result.json()
+                                .then((roomMesages) => {
+                                    this.props.setRoomMessages(roomId, roomMesages);
+                                    this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
+                                }));
                     }));
-            }));
         } else {
             this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
         }
-
     }
 
     handleSendNewMessage = (newMessage) => {
@@ -62,29 +66,29 @@ class ChatRoom extends React.Component {
         fetch(`http://localhost:8080/api/rooms/${newMessage.roomId}/messages`, request)
             .then((result) => result.json()
                 .then((data) => {
-                    console.log("New Message saved" + data);
-            // TODO: handle errors
-        }));
+                    // TODO: handle errors
+                    console.log("New Message saved");
+                }));
     }
 
     render() {
         return (
             <div className="chat-room">
-                    <div className="user-details">
-                        <UserDetails userDetails={this.props.userDetails} />
-                    </div>
-                    <div className="rooms-list">
-                        <RoomList onRoomClick={this.handleChatRoomClick} />
-                    </div>
-                    <div className="room-details">
-                        <ChatHeader />
-                    </div>
-                    <div className="room-messages">
-                        <MessageList />
-                    </div>
-                    <div className="new-chat-message">
-                        <NewMessage onSendMessage={this.handleSendNewMessage} />
-                    </div>
+                <div className="user-details">
+                    <UserDetails userDetails={this.props.userDetails} />
+                </div>
+                <div className="rooms-list">
+                    <RoomList onRoomClick={this.handleChatRoomClick} />
+                </div>
+                <div className="room-details">
+                    <ChatHeader />
+                </div>
+                <div className="room-messages">
+                    <MessageList />
+                </div>
+                <div className="new-chat-message">
+                    <NewMessage onSendMessage={this.handleSendNewMessage} />
+                </div>
             </div>
         );
     }

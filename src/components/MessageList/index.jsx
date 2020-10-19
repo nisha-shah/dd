@@ -12,12 +12,14 @@ function MessageList() {
     }
     useEffect(scrollToBottom, [currentChatMessages]);
 
-    return (
-        <div className="message-list" ref={messagesEndRef}>
-            {currentChatMessages && currentChatMessages.map((chatMessage) => {
-                return <ChatMessage userName={chatMessage.name} message={chatMessage.message} />
+    return (<React.Fragment>
+        <div className="message-list">
+            {currentChatMessages && currentChatMessages.map((chatMessage, idx) => {
+                return <ChatMessage key={idx} userName={chatMessage.name} message={chatMessage.message} />
             })}
         </div>
+        <div ref={messagesEndRef}></div>
+    </React.Fragment>
     );
 
 }
