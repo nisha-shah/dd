@@ -22,11 +22,17 @@ class ChatRoom extends React.Component {
     }
 
     componentDidMount() {
+        // get all available rooms from server
         fetch(SERVER_API_GET_ROOMS_ENDPOINT).then((result) => result.json().then((data) => {
-            // get all room messages
             let chatRooms = {};
             data.forEach((room) => {
-                let newRoom = { id: room.id, name: room.name, users: [], roomDetailsFetched: false, hasUnreadMessages: false };
+                let newRoom = {
+                    id: room.id,
+                    name: room.name,
+                    users: [],
+                    roomDetailsFetched: false,
+                    hasUnreadMessages: false
+                };
                 chatRooms[room.id] = newRoom;
             });
             this.props.setRooms(chatRooms);
@@ -39,12 +45,15 @@ class ChatRoom extends React.Component {
     }
 
     handleChatRoomClick = (roomId) => {
+        // room details and existing messages of that room 
+        // are fetched from server only during the first click
+        // consequently, they are managed clientside via websockets
         if (!this.props.roomDetails[roomId].roomDetailsFetched) {
-            fetch(`http://localhost:8080/api/rooms/${roomId}`)
+            fetch(`${SERVER_API_GET_ROOMS_ENDPOINT}/${roomId}`)
                 .then((result) => result.json()
                     .then((roomDetails) => {
                         this.props.updateRoomDetails(roomDetails);
-                        fetch(`http://localhost:8080/api/rooms/${roomId}/messages`)
+                        fetch(`${SERVER_API_GET_ROOMS_ENDPOINT}/${roomId}/messages`)
                             .then((result) => result.json()
                                 .then((roomMesages) => {
                                     this.props.setRoomMessages(roomId, roomMesages);
@@ -57,17 +66,18 @@ class ChatRoom extends React.Component {
     }
 
     handleSendNewMessage = (newMessage) => {
+        // write the new message to server before broadcasting it to other users
         const request = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newMessage)
         };
 
-        fetch(`http://localhost:8080/api/rooms/${newMessage.roomId}/messages`, request)
+        fetch(`${SERVER_API_GET_ROOMS_ENDPOINT}/${newMessage.roomId}/messages`, request)
             .then((result) => result.json()
                 .then((data) => {
                     // TODO: handle errors
-                    console.log("New Message saved");
+                    console.log("New Message persisted");
                 }));
     }
 

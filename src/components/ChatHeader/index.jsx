@@ -12,6 +12,8 @@ function ChatHeader() {
 
     const { chatRoom, currentUserName } = useSelector(stateToSelector);
 
+    // handling logic to ensure first name is of current user
+    // if current user is member of the room
     let firstName = null;
     let others = Object.assign([], chatRoom.users)
     if (chatRoom.users && chatRoom.users.includes(currentUserName)) {

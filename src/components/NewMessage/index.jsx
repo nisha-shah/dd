@@ -42,7 +42,7 @@ function NewMessage(props) {
     }
 
     const handleKeypress = event => {
-        //it triggers by pressing the enter key
+        // triggers by pressing the enter key
         if (event.keyCode === 13) {
             handleSendButtonClick();
         }
