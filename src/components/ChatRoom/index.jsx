@@ -1,0 +1,101 @@
+import React from "react";
+import UserDetails from "../UserDetails";
+import RoomList from "../RoomList";
+import MessageList from "../MessageList";
+import ChatHeader from "../ChatHeader";
+import NewMessage from "../NewMessage";
+import "./styles.css";
+import { connect } from "react-redux";
+import { SET_CHAT_ROOMS, UPDATE_ROOM_DETAILS, SET_CURRENT_CHAT_ROOM, SET_ROOM_MESSAGES } from "../../redux/actions";
+
+
+class ChatRoom extends React.Component {
+
+    componentDidMount() {
+        console.log("In Component did mount");
+        fetch('http://localhost:8080/api/rooms').then((result) => result.json().then((data) => {
+            // get all room messages
+            let chatRooms = {};
+            data.forEach((room) => {
+                let newRoom = { id: room.id, name: room.name, users: [], roomDetailsFetched: false };
+                chatRooms[room.id] = newRoom;
+            });
+            this.props.setRooms(chatRooms);
+        }));
+    }
+
+    handleChatRoomClick = (roomId) => {
+
+        console.log("handleChatRoomClick , Selected room id is " + roomId);
+        if (!this.props.roomDetails[roomId].roomDetailsFetched) {
+            fetch(`http://localhost:8080/api/rooms/${roomId}`).then((result) => result.json().then((roomDetails) => {
+                this.props.updateRoomDetails(roomDetails);
+                // TODO --> check if need to move this fetch under above
+                fetch(`http://localhost:8080/api/rooms/${roomId}/messages`).then((result) => result.json().then((roomMesages) => {
+                    this.props.setRoomMessages(roomId, roomMesages);
+                    this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
+                }));
+            }));
+        } else {
+            this.props.setCurrentChatRoom(this.props.roomDetails[roomId]);
+        }
+
+    }
+
+    handleSendNewMessage = (newMessage) => {
+        console.log("Handle Send Message" + JSON.stringify(newMessage));
+        const request = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newMessage)
+        };
+
+
+        fetch(`http://localhost:8080/api/rooms/${newMessage.roomId}/messages`, request).then((result) => result.json().then((data) => {
+            // TODO: handle errors
+        }));
+    }
+
+    render() {
+        return (
+            <div className="chat-room" style={{ height: "100%", width: "100%", position: "absolute" }}>
+                <div className="left-bar">
+                    <div className="user-details">
+                        <UserDetails userDetails={this.props.userDetails} />
+                    </div>
+                    <div className="rooms-list">
+                        <RoomList onRoomClick={this.handleChatRoomClick} />
+                    </div>
+                </div>
+                <div className="right-bar" >
+                    <div className="room-details">
+                        <ChatHeader />
+                    </div>
+                    <div className="room-messages">
+                        <MessageList />
+                    </div>
+                    <div className="new-message">
+                        <NewMessage onSendMessage={this.handleSendNewMessage} />
+                    </div>
+                </div>
+            </div>
+
+        );
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setRooms: (chatRooms) => dispatch({ type: SET_CHAT_ROOMS, data: chatRooms }),
+        updateRoomDetails: (roomDetails) => dispatch({ type: UPDATE_ROOM_DETAILS, data: roomDetails }),
+        setCurrentChatRoom: (selectedChatRoom) => dispatch({ type: SET_CURRENT_CHAT_ROOM, data: selectedChatRoom }),
+        setRoomMessages: (roomId, messages) => dispatch({ type: SET_ROOM_MESSAGES, data: { roomId: roomId, messages: messages } }),
+    }
+}
+
+const mapStateToProps = (state) => {
+    const { roomDetails } = state;
+    return { roomDetails: roomDetails };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom);

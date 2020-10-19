@@ -3,8 +3,10 @@ import reducer from "./reducer";
 
 let initialState = {
     userDetails: {},
-    chatRooms: [],
-    selectedChatRoom: {}
+    roomDetails: {},
+    roomMessages: {},
+    currentChatRoom: {},
+    currentChatMessages: []
 };
 
 export const store = createStore(

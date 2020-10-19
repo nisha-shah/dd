@@ -22,6 +22,7 @@ io.on('connection', (socket) => {
 
   socket.on('send-message', (data) => {
     console.log('WSS --> Client send-message'+ data);
+    socket.broadcast.emit("get-message", data);
   });
 
 

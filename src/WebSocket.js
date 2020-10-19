@@ -1,11 +1,9 @@
-import React, { createContext } from 'react'
-import io from 'socket.io-client';
-// import { WS_BASE } from './config';
-import { useDispatch } from 'react-redux';
+import React, { createContext } from "react"
+import io from "socket.io-client";
+import { useDispatch } from "react-redux";
+import { ADD_NEW_ROOM_MESSAGE } from "./redux/actions";
 
-const WebSocketContext = createContext(null)
-const WS_BASE = "http://localhost:8000";
-export { WebSocketContext }
+export const WebSocketContext = createContext(null)
 
 export default ({ children }) => {
     let socket;
@@ -17,8 +15,6 @@ export default ({ children }) => {
         socket.emit("send-message", JSON.stringify(message));
         // TODO : on success , call callback : add on failure callBack
         callback(message);
-        // dispatch(updateChatLog(payload));
-        // dispatch({type: ADD_NEW_MESSAGE_TO_CHAT_ROOM, newChatMessage: message.message});
     }
 
     if (!socket) {
@@ -26,19 +22,13 @@ export default ({ children }) => {
         socket = io("http://localhost:8000");
 
         socket.on("connect", () => {
-            // either with send()
             console.log("WebSocket Client --> Connected");
-            socket.send("Hello websocket is connected!");
-
-            // or with emit() and custom event names
-            // socket.emit('salutations', 'Hello!', { 'mr': 'john' }, Uint8Array.from([1, 2, 3, 4]));
+            // socket.send("Hello websocket is connected!");
         });
 
-        socket.on("chat-message", (msg) => {
-            console.log("WebSocket --> GET MESSAGE");
-            // const payload = JSON.parse(msg);
-            // // dispatch(updateChatLog(payload));
-            // dispatch({type: UPDATE_CHAT_LOG, data: payload});
+        socket.on("get-message", (msg) => {
+            console.log("WebSocket --> GET MESSAGE" + msg);
+            dispatch({ type: ADD_NEW_ROOM_MESSAGE, data: JSON.parse(msg) });
         })
 
         ws = {
@@ -47,10 +37,10 @@ export default ({ children }) => {
         }
     }
 
-
     return (
         <WebSocketContext.Provider value={ws}>
             {children}
         </WebSocketContext.Provider>
     )
 }
+

@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./styles.css";
+import "./styles.css"
 
 function ChatHeader() {
 
-    const chatRoom = useSelector(state => state.selectedChatRoom);
+    const chatRoom = useSelector(state => state.currentChatRoom);
+
     return (
         <div className="chat-header">
             <div className="chat-room-name">{chatRoom.name}</div>

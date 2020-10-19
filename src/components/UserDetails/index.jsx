@@ -6,7 +6,7 @@ function UserDetails(props) {
     return (
         <div className="user-details">
             <div className="user-name">{props.userDetails.name}</div>
-            <UserSession sessionInTime={props.userDetails.sessionStartTime}/>
+            <UserSession sessionInTime={props.userDetails.sessionStartTime} />
         </div>
     );
 }
