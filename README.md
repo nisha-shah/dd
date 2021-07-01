@@ -38,9 +38,8 @@ npm start
 # open multiple tabs in browser for multiple user communication
 ```
 
---------------------- Original Instructions ---------------------
-
-# DoorDash Frontend Interview Project
+--------------------- Original Instructions --------------------
+# Frontend chat app Project
 * TLDR: *Build a chat app with real APIs*
 * Time: *3hr - 6hrs*
 * Allowed tools & frameworks: *anything*
@@ -84,10 +83,8 @@ Secondly, don't worry much about setting up build tools—use something simple a
 * If you're using Vue, [`vue-cli`](https://github.com/vuejs/vue-cli) will be a fast way to get started.
 * For anything else, use your favorite generators or templates!
 
-## How we'll test this
-We're going to review your code to see how you work and how you make tradeoffs—no automated tests for this one. We'll schedule a call with you after you submit this to walk through the code to understand your thought process. If you come on-site, we'll take your code here, and we'll build on it to test other things—how you write tests, how you build out new features and refactor old code, etc.
 
-## We'll be evaluating for:
+## :
 * Solid UX without strict guidance
 * Chat Features
 * Code quality
@@ -96,12 +93,6 @@ We're going to review your code to see how you work and how you make tradeoffs�
 * Maintainability
 * Communication 
 
-## Submission Instructions
-1. Write up instructions on how to run your project and ensure there's ample documentation on your intent
-2. Create a zip file containing your solution and all the starter files provided by us. Make sure we can run the application using just the files in the zip. Delete `node_modules` before zipping the project files.
-3. Name your zip file as `dd_takehome_<framework>.zip` (for example, if you used react for the project, your zip file would be named `dd_takehome_react.zip`
-4. Share the zip file with the recruiter using any file sharing service (Google Drive, Dropbox, etc.) - GMail unfortunately blocks .js files even if they're zipped. Make sure the recruiter has permissions to access the zip file.
-5. We'll review and get back to you soon!
 
 ## Extra notes
 
@@ -111,4 +102,4 @@ A couple of things to say:
 
 2. Feel free to use any libraries or frameworks you want, with the idea that they're increasing your productivity, not writing the app for you.
 
-3. **Please don't** modify the server.js file. We're looking to see your front-end skills!
+3. **Please don't** modify the server.js file.
